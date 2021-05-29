@@ -1,8 +1,8 @@
 const express = require('express');
 const Success = require('../Handlers/successHandler');
 const {
-    findCities
-} = require('../services/cityService');
+    weatherByCoordinates: weatherByCoordinatesServices
+} = require('../services/weatherService');
 
 
 /**
@@ -11,12 +11,18 @@ const {
  * @param {express.Response} res 
  */
 
-const cities = async (req, res) => {
-    const cities = await findCities(req.params.city)
-    const success = new Success(cities);
-    res.json(success);
+const weatherByCoordinates = async (req, res) => {
+        const {
+            lon,
+            lat
+        } = req.query;
+        const weather = await weatherByCoordinatesServices(lon, lat)
+        const success = new Success(weather);
+
+        res.json(success);
+    
 };
 
 module.exports = {
-    cities,
+    weatherByCoordinates
 }
