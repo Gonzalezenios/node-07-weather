@@ -11,6 +11,7 @@ class ExpressServer {
         this.app = express();
         this.port = config.port;
         this.basePathWeather = `${config.api.prefix}/weather`;
+        this.basePathCities = `${config.api.prefix}/cities`;
 
         this._middlewares();
 
@@ -36,6 +37,7 @@ class ExpressServer {
         });
 
         this.app.use(this.basePathWeather, require('../../routes/weather'));
+        this.app.use(this.basePathCities, require('../../routes/cities'))
     }
 
     _notFound() {
